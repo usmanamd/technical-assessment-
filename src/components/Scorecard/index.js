@@ -1,10 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Scorecard.css";
 
 function Scorecard({ results, candidateData }) {
+  const [max, setMax] = useState();
+
+  useEffect(() => {
+    const max = results.reduce((acc, student) => {
+      if(acc === null || student.votes > acc) 
+          return student.votes
+      return acc
+    }, null)
+    setMax(max);  
+    console.log(max);
+}, [results])
+
+
   if (!results || results.length === 0) {
     return <div>No results</div>;
   }
+
+
 
   let scores = [];
 
@@ -13,7 +28,8 @@ function Scorecard({ results, candidateData }) {
       <tr key={i}>
         <td>{results[i].party}</td>
         <td>{candidateData[i].name}</td>
-        <td>{results[i].votes}</td>
+        <td className={results[i].votes === max ? 'testClass' : ''}>{results[i].votes}</td> 
+  
       </tr>
     );
   }
