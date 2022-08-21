@@ -5,9 +5,9 @@ function Scorecard({ results, candidateData }) {
   const [max, setMax] = useState();
 
   useEffect(() => {
-    const max = results.reduce((acc, student) => {
-      if(acc === null || student.votes > acc) 
-          return student.votes
+    const max = results.reduce((acc, candidate) => {
+      if(acc === null || candidate.votes > acc) 
+          return candidate.votes
       return acc
     }, null)
     setMax(max);  
